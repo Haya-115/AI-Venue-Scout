@@ -1,0 +1,21 @@
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import locationRoutes from "./routes/locationRoutes";
+import favoritesRoutes from "./routes/favoritesRoutes";
+import exportRoutes from "./routes/exportRoutes";
+
+dotenv.config();
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+app.use("/api/recommend", locationRoutes);
+app.use("/api/favorites", favoritesRoutes);
+app.use("/api/export", exportRoutes);
+
+app.get("/", (req, res) => res.send("AI Venue Scout API running!"));
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`Backend running on http://localhost:${PORT}`));
